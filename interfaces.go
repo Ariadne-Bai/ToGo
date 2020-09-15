@@ -28,7 +28,7 @@ func (d Dog) Speak() string {
 type Cat struct {
 }
 
-func (c Cat) Speak() string {
+func (c *Cat) Speak() string {
 	return "Meow!"
 }
 
@@ -41,8 +41,15 @@ func (j JavaProgrammer) Speak() string {
 
 func main() {
 	fmt.Println("Hello Gophers!")
-	animals := []Animal{Dog{}, Cat{}, JavaProgrammer{}}
+
+	// what are stored in animals slice?
+	// when we put Dog{} into the slice there is an antomatic conversion from Dog{} to Animal type
+	// notice, each element is of Animal type, but different values have different underlying types
+	animals := []Animal{&Dog{}, new(Cat), JavaProgrammer{}}
 	for _, animal := range animals {
 		fmt.Println(animal.Speak())
 	}
 }
+
+// some functions may have input of []interface{}
+// everythin in go is passed by value
